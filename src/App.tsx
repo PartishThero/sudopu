@@ -1,122 +1,110 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+/**
+ * @fileoverview Root application component.
+ * Manages routing between screens and modal visibility.
+ * Applies the theme and font style to the document root.
+ */
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useEffect, useState } from 'react'
+import { useGameStore } from '@/store/gameStore.ts'
+import { useSettingsStore } from '@/store/settingsStore.ts'
+import { useStatsStore } from '@/store/statsStore.ts'
+import { Header } from './components/Header/Header.tsx'
+import { Menu } from './components/Menu/Menu.tsx'
+import { GameScreen } from './components/Game/GameScreen.tsx'
+import { SettingsModal } from './components/Modals/SettingsModal.tsx'
+import { StatsModal } from './components/Modals/StatsModal.tsx'
+import { WinModal } from './components/Modals/WinModal.tsx'
+import { OnboardingModal } from './components/Modals/OnboardingModal.tsx'
+import type { Achievement } from './store/statsStore.ts'
+
+const ONBOARDING_KEY = 'sudoku-onboarded'
+
+export default function App() {
+  const { phase, startNewGame, difficulty, reset } = useGameStore()
+  const { theme, fontStyle } = useSettingsStore()
+  const { loadStats } = useStatsStore()
+
+  const [showSettings, setShowSettings] = useState(false)
+  const [showStats, setShowStats] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(false)
+  const [winAchievements, setWinAchievements] = useState<Achievement[]>([])
+
+  // Load stats from IndexedDB on mount
+  useEffect(() => {
+    loadStats()
+  }, [loadStats])
+
+  // Show onboarding for first-time users
+  useEffect(() => {
+    if (!localStorage.getItem(ONBOARDING_KEY)) {
+      setShowOnboarding(true)
+    }
+  }, [])
+
+  // Apply theme & font to document root
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    document.documentElement.setAttribute('data-font', fontStyle)
+  }, [theme, fontStyle])
+
+  // Apply colorblind mode
+  const { colorblindMode } = useSettingsStore()
+  useEffect(() => {
+    document.documentElement.setAttribute('data-colorblind', String(colorblindMode))
+  }, [colorblindMode])
+
+  const handleWin = (achievements: Achievement[]) => {
+    setWinAchievements(achievements)
+  }
+
+  const handleOnboardingClose = () => {
+    localStorage.setItem(ONBOARDING_KEY, '1')
+    setShowOnboarding(false)
+  }
+
+  const handleHome = () => {
+    reset()
+  }
+
+
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-container">
+      <Header
+        onOpenSettings={() => setShowSettings(true)}
+        onOpenStats={() => setShowStats(true)}
+        onHome={handleHome}
+      />
 
-      <div className="ticks"></div>
+      <main className="main-content" role="main">
+        {phase === 'menu' ? (
+          <Menu onShowOnboarding={() => setShowOnboarding(true)} />
+        ) : (
+          <div className="game-layout">
+            <div className="game-left">
+              <GameScreen onWin={handleWin} />
+            </div>
+          </div>
+        )}
+      </main>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {/* Modals */}
+      {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
+      {showStats && <StatsModal onClose={() => setShowStats(false)} />}
+      {showOnboarding && <OnboardingModal onClose={handleOnboardingClose} />}
+      {phase === 'won' && (
+        <WinModal
+          newAchievements={winAchievements}
+          onNewGame={() => {
+            setWinAchievements([])
+            startNewGame(difficulty)
+          }}
+          onMenu={() => {
+            setWinAchievements([])
+            handleHome()
+          }}
+        />
+      )}
+    </div>
   )
 }
-
-export default App

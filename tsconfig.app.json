@@ -24,7 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     "exactOptionalPropertyTypes": true,
 
-    /* Path aliases */
+    /* Path aliases — resolved via Vite (ignoreDeprecations needed for TS6 baseUrl) */
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

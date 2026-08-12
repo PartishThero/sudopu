@@ -31,7 +31,7 @@ export interface SaveSlot {
   puzzle: Board
   solution: Board
   playerBoard: Board
-  notes: number[][]
+  notes: number[]        // per-cell bitmask (flat array of 81)
   difficulty: Difficulty
   elapsedSeconds: number
   moveCount: number

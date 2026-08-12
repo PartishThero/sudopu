@@ -38,10 +38,6 @@ const TECHNIQUE_SCORES: Record<Technique, number> = {
 // Candidate grid manipulation helpers
 // ---------------------------------------------------------------------------
 
-function cloneCandidates(grid: CandidateGrid): CandidateGrid {
-  return grid.map(s => new Set(s))
-}
-
 /** Place a value at cell index, remove from all peers' candidates */
 function placeValue(grid: CandidateGrid, board: Board, idx: number, val: CellValue): void {
   board[idx] = val
@@ -377,7 +373,7 @@ export function classifyDifficulty(puzzle: Board): DifficultyResult {
   }
 }
 
-function scoreToDifficulty(score: number, techniques: Technique[]): Difficulty {
+function scoreToDifficulty(_score: number, techniques: Technique[]): Difficulty {
   const hardestTech = techniques.reduce<Technique | null>((acc, t) => {
     if (!acc || TECHNIQUE_SCORES[t] > TECHNIQUE_SCORES[acc]) return t
     return acc
