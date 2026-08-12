@@ -25,7 +25,7 @@
     "exactOptionalPropertyTypes": true,
 
     /* Path aliases — resolved via Vite (ignoreDeprecations needed for TS6 baseUrl) */
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
