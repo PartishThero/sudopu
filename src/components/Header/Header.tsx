@@ -15,10 +15,11 @@ interface HeaderProps {
 }
 
 export function Header({ onOpenSettings, onOpenStats, onHome }: HeaderProps) {
-  const { phase, elapsedSeconds, isDaily } = useGameStore()
+  const { phase, elapsedSeconds, timeRemaining, timerMode, isDaily } = useGameStore()
   const { showTimer } = useSettingsStore()
 
-  const showTimerDisplay = showTimer && (phase === 'playing' || phase === 'paused' || phase === 'won')
+  const isVisiblePhase = phase === 'playing' || phase === 'paused' || phase === 'won' || phase === 'lost'
+  const showTimerDisplay = showTimer && isVisiblePhase && timerMode !== 'zen'
 
   return (
     <motion.header
@@ -58,15 +59,15 @@ export function Header({ onOpenSettings, onOpenStats, onHome }: HeaderProps) {
             <span
               style={{
                 fontVariantNumeric: 'tabular-nums',
-                fontSize: '1rem',
-                fontWeight: 700,
-                color: phase === 'paused' ? 'var(--text-muted)' : 'var(--text-primary)',
-                marginRight: 8,
+                fontSize: '0.9rem',
+                opacity: 0.8,
+                marginRight: 12,
+                color: (timerMode === 'time-attack' && timeRemaining !== null && timeRemaining <= 60) ? 'var(--btn-danger-bg)' : 'inherit'
               }}
               aria-live="polite"
-              aria-label={`Timer: ${formatTime(elapsedSeconds)}`}
+              aria-label={`Timer: ${timerMode === 'time-attack' && timeRemaining !== null ? formatTime(timeRemaining) : formatTime(elapsedSeconds)}`}
             >
-              {formatTime(elapsedSeconds)}
+              {timerMode === 'time-attack' && timeRemaining !== null ? formatTime(timeRemaining) : formatTime(elapsedSeconds)}
             </span>
           )}
 

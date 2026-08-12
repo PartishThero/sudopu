@@ -18,6 +18,15 @@ export type CandidateGrid = Candidates[]
 /** Difficulty level labels */
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'expert'
 
+export type MistakeLimit = 'infinite' | 3 | 1
+export type TimerMode = 'classic' | 'zen' | 'time-attack'
+
+export interface HouseRules {
+  mistakeLimit: MistakeLimit
+  timerMode: TimerMode
+  hintsEnabled: boolean
+}
+
 /**
  * A solving technique name, used for difficulty classification.
  * Ordered from simplest to most complex.

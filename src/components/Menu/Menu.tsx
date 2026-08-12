@@ -2,13 +2,14 @@
  * @fileoverview Main menu / home screen (Cozy Redesign).
  */
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useGameStore } from '@/store/gameStore.ts'
 import type { Difficulty } from '@/engine/types.ts'
 import { getTodayDateString, getDailyDifficulty } from '@/engine/daily.ts'
 import { Calendar, BookOpen } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import type { Variants } from 'framer-motion'
+import { NewGameModal } from '../Modals/NewGameModal.tsx'
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -48,6 +49,8 @@ export function Menu({ onShowOnboarding }: MenuProps) {
   const dailyDiff = getDailyDifficulty()
   
   const greeting = useMemo(() => getGreeting(), [])
+  
+  const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | null>(null)
 
   return (
     <motion.div
@@ -88,7 +91,7 @@ export function Menu({ onShowOnboarding }: MenuProps) {
               whileTap={{ scale: 0.98 }}
               key={d.id}
               className={`menu-diff-item menu-diff-item--${d.id}`}
-              onClick={() => startNewGame(d.id)}
+              onClick={() => setSelectedDifficulty(d.id)}
               id={`btn-new-${d.id}`}
               aria-label={`Start new ${d.label} game`}
             >
@@ -111,6 +114,19 @@ export function Menu({ onShowOnboarding }: MenuProps) {
           </motion.button>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {selectedDifficulty && (
+          <NewGameModal
+            difficulty={selectedDifficulty}
+            onClose={() => setSelectedDifficulty(null)}
+            onStart={(rules) => {
+              setSelectedDifficulty(null)
+              startNewGame(selectedDifficulty, rules)
+            }}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   )
 }

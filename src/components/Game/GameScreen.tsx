@@ -31,6 +31,8 @@ export function GameScreen({ onWin }: GameScreenProps) {
     dailyDate,
     lastHint,
     requestHint,
+    timerMode,
+    timeRemaining,
   } = useGameStore()
 
   const { recordGame } = useStatsStore()
@@ -64,9 +66,19 @@ export function GameScreen({ onWin }: GameScreenProps) {
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, width: '100%' }}>
       {/* Top Info Area */}
       <div className="game-top-info" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-        <span className="game-timer" style={{ fontSize: '1.2rem', fontWeight: 500, fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
-          {formatTime(elapsedSeconds)}
-        </span>
+        {timerMode !== 'zen' && (
+          <span 
+            className="game-timer" 
+            style={{ 
+              fontSize: '1.2rem', 
+              fontWeight: 500, 
+              fontVariantNumeric: 'tabular-nums', 
+              color: (timerMode === 'time-attack' && timeRemaining !== null && timeRemaining <= 60) ? 'var(--btn-danger-bg)' : 'var(--text-primary)'
+            }}
+          >
+            {timerMode === 'time-attack' && timeRemaining !== null ? formatTime(timeRemaining) : formatTime(elapsedSeconds)}
+          </span>
+        )}
         <span className={`difficulty-badge difficulty-badge--${difficulty}`}>
           {difficulty}
         </span>

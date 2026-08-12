@@ -22,6 +22,7 @@ export function Controls({ onHint }: ControlsProps) {
     phase,
     isPencilMode,
     togglePencilMode,
+    hintsEnabled,
   } = useGameStore()
   const { soundEnabled } = useSettingsStore()
 
@@ -65,16 +66,18 @@ export function Controls({ onHint }: ControlsProps) {
         <span className="ctrl-btn-label">Notes</span>
       </motion.button>
 
-      <motion.button
-        className="ctrl-btn"
-        onClick={() => { if (soundEnabled) Sounds.hint(); onHint() }}
-        aria-label="Get a hint"
-        title="Hint"
-        whileTap={{ scale: 0.92 }}
-      >
-        <span className="ctrl-btn-icon"><Lightbulb size={20} /></span>
-        <span className="ctrl-btn-label">Hint</span>
-      </motion.button>
+      {hintsEnabled && (
+        <motion.button
+          className="ctrl-btn"
+          onClick={() => { if (soundEnabled) Sounds.hint(); onHint() }}
+          aria-label="Get a hint"
+          title="Hint"
+          whileTap={{ scale: 0.92 }}
+        >
+          <span className="ctrl-btn-icon"><Lightbulb size={20} /></span>
+          <span className="ctrl-btn-label">Hint</span>
+        </motion.button>
+      )}
 
       {phase === 'playing' && (
         <motion.button

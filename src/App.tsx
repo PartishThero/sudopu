@@ -15,6 +15,7 @@ import { GameScreen } from './components/Game/GameScreen.tsx'
 import { SettingsModal } from './components/Modals/SettingsModal.tsx'
 import { StatsModal } from './components/Modals/StatsModal.tsx'
 import { WinModal } from './components/Modals/WinModal.tsx'
+import { GameOverModal } from './components/Modals/GameOverModal.tsx'
 import { OnboardingModal } from './components/Modals/OnboardingModal.tsx'
 import type { Achievement } from './store/statsStore.ts'
 
@@ -130,6 +131,18 @@ export default function App() {
           }}
         />
       )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {phase === 'lost' && (
+          <GameOverModal
+            onRetry={() => {
+              startNewGame(difficulty, { mistakeLimit: useGameStore.getState().mistakeLimit, timerMode: useGameStore.getState().timerMode, hintsEnabled: useGameStore.getState().hintsEnabled })
+            }}
+            onMenu={() => {
+              handleHome()
+            }}
+          />
+        )}
       </AnimatePresence>
     </div>
   )

@@ -9,7 +9,7 @@
 
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { Board, CellValue, Difficulty, PuzzleResult, Hint } from '@/engine/types.ts'
+import type { Board, CellValue, Difficulty, PuzzleResult, Hint, HouseRules, MistakeLimit, TimerMode } from '@/engine/types.ts'
 import { generatePuzzle, getDailyPuzzle } from '@/engine/index.ts'
 import { getConflicts, isSolved } from '@/engine/solver.ts'
 import { getHint } from '@/engine/difficulty.ts'
@@ -40,9 +40,14 @@ export interface SaveSlot {
   savedAt: number
   isDaily: boolean
   dailyDate?: string
+
+  // House Rules
+  mistakeLimit: MistakeLimit
+  timerMode: TimerMode
+  hintsEnabled: boolean
 }
 
-export type GamePhase = 'menu' | 'playing' | 'paused' | 'won' | 'daily'
+export type GamePhase = 'menu' | 'playing' | 'paused' | 'won' | 'lost' | 'daily'
 
 interface GameState {
   // Current game
@@ -67,9 +72,15 @@ interface GameState {
 
   // Counters
   elapsedSeconds: number
+  timeRemaining: number | null // Used for time-attack
   moveCount: number
   mistakeCount: number
   hintCount: number
+
+  // House Rules
+  mistakeLimit: MistakeLimit
+  timerMode: TimerMode
+  hintsEnabled: boolean
 
   // Conflicts (derived)
   conflicts: Set<number>
@@ -78,7 +89,7 @@ interface GameState {
   lastHint: Hint | null
 
   // Actions
-  startNewGame: (difficulty: Difficulty) => void
+  startNewGame: (difficulty: Difficulty, rules?: HouseRules) => void
   startDailyChallenge: () => void
   loadSaveSlot: (slot: SaveSlot) => void
   selectCell: (index: number | null) => void
@@ -123,15 +134,26 @@ export const useGameStore = create<GameState>()(
       history: [],
       historyIndex: -1,
       elapsedSeconds: 0,
+      timeRemaining: null,
       moveCount: 0,
       mistakeCount: 0,
       hintCount: 0,
+      mistakeLimit: 'infinite',
+      timerMode: 'classic',
+      hintsEnabled: true,
       conflicts: new Set<number>(),
       lastHint: null,
 
-      startNewGame: (difficulty) => {
+      startNewGame: (difficulty, rules) => {
         const result: PuzzleResult = generatePuzzle(difficulty)
         const playerBoard = result.puzzle.slice() as Board
+        
+        let timeRemaining = null
+        if (rules?.timerMode === 'time-attack') {
+          // Defaults: easy: 5m, medium: 10m, hard: 15m, expert: 20m
+          timeRemaining = difficulty === 'easy' ? 300 : difficulty === 'medium' ? 600 : difficulty === 'hard' ? 900 : 1200
+        }
+
         set({
           phase: 'playing',
           puzzle: result.puzzle,
@@ -146,9 +168,13 @@ export const useGameStore = create<GameState>()(
           history: [],
           historyIndex: -1,
           elapsedSeconds: 0,
+          timeRemaining,
           moveCount: 0,
           mistakeCount: 0,
           hintCount: 0,
+          mistakeLimit: rules?.mistakeLimit ?? 'infinite',
+          timerMode: rules?.timerMode ?? 'classic',
+          hintsEnabled: rules?.hintsEnabled ?? true,
           conflicts: new Set<number>(),
           lastHint: null,
         })
@@ -171,9 +197,13 @@ export const useGameStore = create<GameState>()(
           history: [],
           historyIndex: -1,
           elapsedSeconds: 0,
+          timeRemaining: null,
           moveCount: 0,
           mistakeCount: 0,
           hintCount: 0,
+          mistakeLimit: 'infinite',
+          timerMode: 'classic',
+          hintsEnabled: true,
           conflicts: new Set<number>(),
           lastHint: null,
         })
@@ -194,9 +224,13 @@ export const useGameStore = create<GameState>()(
           history: [],
           historyIndex: -1,
           elapsedSeconds: slot.elapsedSeconds,
+          timeRemaining: null, // Basic save states won't support time remaining for now, or assume infinite
           moveCount: slot.moveCount,
           mistakeCount: slot.mistakeCount,
           hintCount: slot.hintCount,
+          mistakeLimit: slot.mistakeLimit ?? 'infinite',
+          timerMode: slot.timerMode ?? 'classic',
+          hintsEnabled: slot.hintsEnabled ?? true,
           conflicts: computeConflicts(slot.playerBoard as Board),
           lastHint: null,
         })
@@ -227,7 +261,15 @@ export const useGameStore = create<GameState>()(
 
         // Check if this is a mistake
         const isWrong = value !== 0 && value !== solution[selectedCell]
-        const newMistakeCount = isWrong ? mistakeCount + 1 : mistakeCount
+        let newMistakeCount = mistakeCount
+        let newPhase = get().phase
+
+        if (isWrong) {
+          newMistakeCount += 1
+          if (get().mistakeLimit !== 'infinite' && newMistakeCount >= (get().mistakeLimit as number)) {
+            newPhase = 'lost'
+          }
+        }
 
         // Clear notes for this cell if placing a definitive value
         const newNotes = [...notes]
@@ -245,17 +287,19 @@ export const useGameStore = create<GameState>()(
           nextNotes: [],
         }
 
-        const isWon = value !== 0 && isSolved(newBoard)
+        if (value !== 0 && isSolved(newBoard)) {
+          newPhase = 'won'
+        }
 
         set({
           playerBoard: newBoard,
           notes: newNotes,
-          history: [...truncatedHistory, move],
+          history: truncatedHistory.concat(move),
           historyIndex: historyIndex + 1,
           moveCount: get().moveCount + 1,
           mistakeCount: newMistakeCount,
           conflicts: newConflicts,
-          phase: isWon ? 'won' : 'playing',
+          phase: newPhase,
           lastHint: null,
         })
       },
@@ -358,9 +402,19 @@ export const useGameStore = create<GameState>()(
       },
 
       tick: () => {
-        set(state => ({
-          elapsedSeconds: state.phase === 'playing' ? state.elapsedSeconds + 1 : state.elapsedSeconds,
-        }))
+        set(state => {
+          if (state.phase !== 'playing') return state
+
+          if (state.timerMode === 'time-attack' && state.timeRemaining !== null) {
+            const nextTime = state.timeRemaining - 1
+            if (nextTime <= 0) {
+              return { timeRemaining: 0, phase: 'lost' }
+            }
+            return { timeRemaining: nextTime }
+          } else {
+            return { elapsedSeconds: state.elapsedSeconds + 1 }
+          }
+        })
       },
 
       requestHint: () => {
@@ -374,7 +428,7 @@ export const useGameStore = create<GameState>()(
       },
 
       getSaveSlot: () => {
-        const { puzzle, solution, playerBoard, notes, difficulty, elapsedSeconds, moveCount, mistakeCount, hintCount, isDaily, dailyDate } = get()
+        const { puzzle, solution, playerBoard, notes, difficulty, elapsedSeconds, moveCount, mistakeCount, hintCount, isDaily, dailyDate, mistakeLimit, timerMode, hintsEnabled } = get()
         if (!puzzle || !solution || !playerBoard) return null
         const slot: SaveSlot = {
           id: crypto.randomUUID(),
@@ -389,6 +443,9 @@ export const useGameStore = create<GameState>()(
           hintCount,
           savedAt: Date.now(),
           isDaily,
+          mistakeLimit,
+          timerMode,
+          hintsEnabled,
         }
         if (dailyDate !== null) slot.dailyDate = dailyDate
         return slot
@@ -409,11 +466,17 @@ export const useGameStore = create<GameState>()(
         difficulty: state.difficulty,
         isDaily: state.isDaily,
         dailyDate: state.dailyDate,
-        notes: state.notes,
+        historyIndex: state.historyIndex,
         elapsedSeconds: state.elapsedSeconds,
+        timeRemaining: state.timeRemaining,
         moveCount: state.moveCount,
         mistakeCount: state.mistakeCount,
         hintCount: state.hintCount,
+        mistakeLimit: state.mistakeLimit,
+        timerMode: state.timerMode,
+        hintsEnabled: state.hintsEnabled,
+        notes: state.notes,
+        history: state.history,
       }),
     }
   )
