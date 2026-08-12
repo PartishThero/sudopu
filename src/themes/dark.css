@@ -1,0 +1,73 @@
+/* ============================================================
+   THEME: DARK (Default)
+   A premium dark mode with deep navy, electric blue accents,
+   and subtle purple highlights.
+   ============================================================ */
+
+[data-theme='dark'] {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --bg-card: #1c2128;
+
+  --border-primary: #30363d;
+  --border-secondary: #21262d;
+
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #484f58;
+
+  --accent: #58a6ff;
+  --accent-hover: #79b8ff;
+  --accent-glow: rgba(88, 166, 255, 0.25);
+
+  /* Board-specific */
+  --cell-bg: #161b22;
+  --cell-bg-hover: #1c2128;
+  --cell-bg-selected: #1a2c4a;
+  --cell-bg-peer: #1a2230;
+  --cell-bg-same: #1a3040;
+  --cell-bg-given: #0d1117;
+  --cell-bg-conflict: #3d1a1a;
+  --cell-bg-hint: #1a3a2a;
+
+  --cell-border: #30363d;
+  --cell-border-box: #484f58;
+
+  --cell-text-given: #e6edf3;
+  --cell-text-player: #58a6ff;
+  --cell-text-conflict: #ff7b72;
+  --cell-text-notes: #6e9fcf;
+  --cell-text-hint: #56d364;
+
+  --number-pad-bg: #161b22;
+  --number-pad-hover: #21262d;
+  --number-pad-active: #1a2c4a;
+
+  --btn-primary-bg: #238636;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #2ea043;
+
+  --btn-secondary-bg: #21262d;
+  --btn-secondary-text: #c9d1d9;
+  --btn-secondary-hover: #30363d;
+
+  --btn-danger-bg: #da3633;
+  --btn-danger-hover: #f85149;
+
+  --modal-bg: rgba(13, 17, 23, 0.95);
+  --modal-card-bg: #161b22;
+
+  --header-bg: rgba(13, 17, 23, 0.9);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+
+  --diff-easy: #56d364;
+  --diff-medium: #e3b341;
+  --diff-hard: #f78166;
+  --diff-expert: #d2a8ff;
+
+  --confetti-1: #58a6ff;
+  --confetti-2: #56d364;
+  --confetti-3: #e3b341;
+  --confetti-4: #d2a8ff;
+}

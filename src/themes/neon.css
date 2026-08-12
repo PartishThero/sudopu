@@ -1,0 +1,93 @@
+/* ============================================================
+   THEME: NEON / CYBERPUNK
+   Blazing neon on pitch black. Electric pink, cyan, and
+   green with heavy glow effects.
+   ============================================================ */
+
+[data-theme='neon'] {
+  --bg-primary: #080010;
+  --bg-secondary: #0e0020;
+  --bg-tertiary: #130030;
+  --bg-card: #0a0018;
+
+  --border-primary: #2a0060;
+  --border-secondary: #1a0040;
+
+  --text-primary: #e8d8ff;
+  --text-secondary: #a080d0;
+  --text-muted: #604090;
+
+  --accent: #b060ff;
+  --accent-hover: #c080ff;
+  --accent-glow: rgba(176, 96, 255, 0.4);
+
+  --cell-bg: #0a0018;
+  --cell-bg-hover: #150030;
+  --cell-bg-selected: #200050;
+  --cell-bg-peer: #100025;
+  --cell-bg-same: #180040;
+  --cell-bg-given: #080015;
+  --cell-bg-conflict: #300010;
+  --cell-bg-hint: #001820;
+
+  --cell-border: #2a0060;
+  --cell-border-box: #4a10a0;
+
+  --cell-text-given: #e8d8ff;
+  --cell-text-player: #00ffff;
+  --cell-text-conflict: #ff2060;
+  --cell-text-notes: #8040d0;
+  --cell-text-hint: #00ff88;
+
+  --number-pad-bg: #0a0018;
+  --number-pad-hover: #150030;
+  --number-pad-active: #200050;
+
+  --btn-primary-bg: #b060ff;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #c080ff;
+
+  --btn-secondary-bg: #130030;
+  --btn-secondary-text: #c0a0f0;
+  --btn-secondary-hover: #1a0040;
+
+  --btn-danger-bg: #ff2060;
+  --btn-danger-hover: #ff4080;
+
+  --modal-bg: rgba(8, 0, 16, 0.97);
+  --modal-card-bg: #0e0020;
+
+  --header-bg: rgba(8, 0, 16, 0.95);
+  --shadow-lg: 0 16px 60px rgba(176, 96, 255, 0.3);
+
+  --diff-easy: #00ff88;
+  --diff-medium: #ffdd00;
+  --diff-hard: #ff6600;
+  --diff-expert: #ff2060;
+
+  --confetti-1: #b060ff;
+  --confetti-2: #00ffff;
+  --confetti-3: #ff2060;
+  --confetti-4: #00ff88;
+}
+
+/* Extra neon glow effects */
+[data-theme='neon'] .cell--selected {
+  box-shadow: 0 0 12px var(--accent-glow), inset 0 0 8px rgba(176, 96, 255, 0.1) !important;
+}
+
+[data-theme='neon'] .cell--player-value {
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+}
+
+[data-theme='neon'] .cell--given {
+  text-shadow: 0 0 6px rgba(232, 216, 255, 0.5);
+}
+
+[data-theme='neon'] .board-grid {
+  box-shadow: 0 0 40px rgba(176, 96, 255, 0.2);
+}
+
+[data-theme='neon'] .num-pad-btn {
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+}
