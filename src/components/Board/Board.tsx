@@ -6,6 +6,15 @@
 import { Cell } from './Cell.tsx'
 import { useGameStore } from '@/store/gameStore.ts'
 import { useSettingsStore } from '@/store/settingsStore.ts'
+import { motion } from 'framer-motion'
+
+const boardVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.015 }
+  }
+}
 
 export function Board() {
   const { phase, playerBoard } = useGameStore()
@@ -15,19 +24,22 @@ export function Board() {
 
   return (
     <div className="board-wrapper" style={{ transform: `scale(${boardZoom})`, transformOrigin: 'top center' }}>
-      <div
+      <motion.div
         className="board-grid"
         role="grid"
         aria-label="Sudoku puzzle grid"
+        variants={boardVariants}
+        initial="hidden"
+        animate="show"
       >
         {Array.from({ length: 81 }, (_, i) => (
           <Cell key={i} index={i} />
         ))}
-      </div>
+      </motion.div>
 
       {phase === 'paused' && (
         <div className="pause-overlay" aria-live="polite">
-          <span className="pause-text">⏸ Paused — click to resume</span>
+          <span className="pause-text">Paused</span>
         </div>
       )}
     </div>

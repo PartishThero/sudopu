@@ -6,6 +6,8 @@ interface OnboardingModalProps {
   onClose: () => void
 }
 
+import { motion } from 'framer-motion'
+
 const STEPS = [
   {
     title: 'Fill the Grid',
@@ -17,11 +19,11 @@ const STEPS = [
   },
   {
     title: 'Pencil Notes',
-    desc: 'Press ✏️ or P to toggle pencil mode. In pencil mode, numbers are stored as small candidate notes instead of definitive values.',
+    desc: 'Press Pencil icon or P to toggle pencil mode. In pencil mode, numbers are stored as small candidate notes instead of definitive values.',
   },
   {
     title: 'Undo & Hints',
-    desc: 'Made a mistake? Use ↩ Undo (Ctrl+Z) to go back. Stuck? Press 💡 Hint for a technique-based suggestion.',
+    desc: 'Made a mistake? Use Undo (Ctrl+Z) to go back. Stuck? Press Hint for a technique-based suggestion.',
   },
   {
     title: 'Choose Your Difficulty',
@@ -31,9 +33,24 @@ const STEPS = [
 
 export function OnboardingModal({ onClose }: OnboardingModalProps) {
   return (
-    <div className="modal-overlay">
-      <div className="modal-card" role="dialog" aria-modal="true" aria-label="How to play">
-        <h2 className="modal-title">Welcome to Sudoku Master 🎯</h2>
+    <motion.div
+      className="modal-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <motion.div
+        className="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-label="How to play"
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.95 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+      >
+        <h2 className="modal-title">Welcome to Sudopu</h2>
 
         <div className="onboarding-steps">
           {STEPS.map((step, i) => (
@@ -46,10 +63,14 @@ export function OnboardingModal({ onClose }: OnboardingModalProps) {
           ))}
         </div>
 
-        <button className="btn btn--primary btn--full" onClick={onClose}>
-          Let's Play! 🚀
-        </button>
-      </div>
-    </div>
+        <motion.button
+          className="btn btn--primary btn--full"
+          onClick={onClose}
+          whileTap={{ scale: 0.95 }}
+        >
+          Let's Play!
+        </motion.button>
+      </motion.div>
+    </motion.div>
   )
 }

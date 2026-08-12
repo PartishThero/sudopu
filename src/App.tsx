@@ -5,6 +5,7 @@
  */
 
 import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useGameStore } from '@/store/gameStore.ts'
 import { useSettingsStore } from '@/store/settingsStore.ts'
 import { useStatsStore } from '@/store/statsStore.ts'
@@ -77,22 +78,46 @@ export default function App() {
       />
 
       <main className="main-content" role="main">
-        {phase === 'menu' ? (
-          <Menu onShowOnboarding={() => setShowOnboarding(true)} />
-        ) : (
-          <div className="game-layout">
-            <div className="game-left">
-              <GameScreen onWin={handleWin} />
-            </div>
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {phase === 'menu' ? (
+            <motion.div
+              key="menu"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Menu onShowOnboarding={() => setShowOnboarding(true)} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="game"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              className="game-layout"
+            >
+              <div className="game-left">
+                <GameScreen onWin={handleWin} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       {/* Modals */}
-      {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
-      {showStats && <StatsModal onClose={() => setShowStats(false)} />}
-      {showOnboarding && <OnboardingModal onClose={handleOnboardingClose} />}
-      {phase === 'won' && (
+      <AnimatePresence>
+        {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showStats && <StatsModal onClose={() => setShowStats(false)} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showOnboarding && <OnboardingModal onClose={handleOnboardingClose} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {phase === 'won' && (
         <WinModal
           newAchievements={winAchievements}
           onNewGame={() => {
@@ -105,6 +130,7 @@ export default function App() {
           }}
         />
       )}
+      </AnimatePresence>
     </div>
   )
 }

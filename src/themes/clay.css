@@ -1,0 +1,66 @@
+/* ============================================================
+   THEME: CLAY
+   Clay-green, muted earthy tones, soft terracotta.
+   ============================================================ */
+
+[data-theme='clay'] {
+  --bg-primary: #e6e0d4;
+  --bg-secondary: #dcd4c6;
+  --bg-tertiary: #d1c7b6;
+  --bg-card: #e6e0d4;
+
+  --border-primary: rgba(142, 148, 133, 0.2);
+  --border-secondary: rgba(142, 148, 133, 0.1);
+
+  --text-primary: #4f5348;
+  --text-secondary: #747b6a;
+  --text-muted: #959e8b;
+
+  --accent: #8e9485;
+  --accent-hover: #7b8271;
+  --accent-glow: rgba(142, 148, 133, 0.25);
+
+  /* Board-specific */
+  --cell-bg: #e6e0d4;
+  --cell-bg-hover: #dcd4c6;
+  --cell-bg-selected: #d1c7b6;
+  --cell-bg-peer: rgba(142, 148, 133, 0.08);
+  --cell-bg-same: rgba(142, 148, 133, 0.15);
+  --cell-bg-given: #e6e0d4;
+  --cell-bg-conflict: #b27a6a;
+  --cell-bg-hint: #6f7467;
+
+  --cell-border: rgba(142, 148, 133, 0.15);
+  --cell-border-box: rgba(142, 148, 133, 0.35);
+
+  --cell-text-given: #4f5348;
+  --cell-text-player: #8e9485;
+  --cell-text-conflict: #7d4436;
+  --cell-text-notes: #959e8b;
+  --cell-text-hint: #e6e0d4;
+
+  --number-pad-hover: #d1c7b6;
+  --number-pad-active: #c5baaa;
+
+  --btn-primary-bg: #4f5348;
+  --btn-primary-text: #e6e0d4;
+  --btn-primary-hover: #3d4037;
+
+  --btn-secondary-bg: #dcd4c6;
+  --btn-secondary-text: #4f5348;
+  --btn-secondary-hover: #d1c7b6;
+
+  --btn-danger-bg: #b27a6a;
+  --btn-danger-hover: #9c6858;
+
+  --modal-bg: rgba(230, 224, 212, 0.95);
+  --modal-card-bg: #e6e0d4;
+
+  --header-bg: transparent;
+  --shadow-lg: 0 12px 40px rgba(79, 83, 72, 0.1);
+
+  --diff-easy: #8e9485;
+  --diff-medium: #c2ab86;
+  --diff-hard: #c2887a;
+  --diff-expert: #b27a6a;
+}

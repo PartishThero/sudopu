@@ -61,39 +61,29 @@ export function GameScreen({ onWin }: GameScreenProps) {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, width: '100%' }}>
-      {/* Info bar */}
-      <div className="game-info-bar">
-        <div className="game-info-item">
-          <span className="game-info-label">Difficulty</span>
-          <span className={`difficulty-badge difficulty-badge--${difficulty}`}>
-            {difficulty}
-          </span>
-        </div>
-
-        <div className="game-info-item">
-          <span className="game-info-label">Time</span>
-          <span className="game-info-value">{formatTime(elapsedSeconds)}</span>
-        </div>
-
-        <div className="game-info-item">
-          <span className="game-info-label">Mistakes</span>
-          <span
-            className="game-info-value"
-            style={{ color: mistakeCount > 0 ? 'var(--cell-text-conflict)' : undefined }}
-          >
-            {mistakeCount}
-          </span>
-        </div>
-
-        <div className="game-info-item">
-          <span className="game-info-label">Hints</span>
-          <span className="game-info-value">{hintCount}</span>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, width: '100%' }}>
+      {/* Top Info Area */}
+      <div className="game-top-info" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+        <span className="game-timer" style={{ fontSize: '1.2rem', fontWeight: 500, fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
+          {formatTime(elapsedSeconds)}
+        </span>
+        <span className={`difficulty-badge difficulty-badge--${difficulty}`}>
+          {difficulty}
+        </span>
       </div>
 
       {/* Board */}
       <Board />
+
+      {/* Bottom Understated Info */}
+      <div className="game-bottom-info" style={{ display: 'flex', gap: 24, opacity: 0.6, fontSize: '0.8rem', marginTop: 8 }}>
+        {mistakeCount > 0 && (
+          <span style={{ color: 'var(--cell-text-conflict)' }}>Mistakes: {mistakeCount}</span>
+        )}
+        {hintCount > 0 && (
+          <span>Hints used: {hintCount}</span>
+        )}
+      </div>
 
       {/* Hint card */}
       {lastHint && (

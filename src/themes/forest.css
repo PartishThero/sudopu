@@ -1,0 +1,66 @@
+/* ============================================================
+   THEME: FOREST
+   Deep moss green, sage, warm woods.
+   ============================================================ */
+
+[data-theme='forest'] {
+  --bg-primary: #1c2722;
+  --bg-secondary: #26332d;
+  --bg-tertiary: #304038;
+  --bg-card: #222e29;
+
+  --border-primary: rgba(162, 187, 168, 0.15);
+  --border-secondary: rgba(162, 187, 168, 0.08);
+
+  --text-primary: #dce5df;
+  --text-secondary: #a2bba8;
+  --text-muted: #6b8a75;
+
+  --accent: #8fb397;
+  --accent-hover: #a5c4ad;
+  --accent-glow: rgba(143, 179, 151, 0.15);
+
+  /* Board-specific */
+  --cell-bg: #222e29;
+  --cell-bg-hover: #2a3831;
+  --cell-bg-selected: #34453d;
+  --cell-bg-peer: rgba(143, 179, 151, 0.08);
+  --cell-bg-same: rgba(143, 179, 151, 0.15);
+  --cell-bg-given: #222e29;
+  --cell-bg-conflict: #b26a6a;
+  --cell-bg-hint: #5d7e68;
+
+  --cell-border: rgba(162, 187, 168, 0.1);
+  --cell-border-box: rgba(162, 187, 168, 0.25);
+
+  --cell-text-given: #dce5df;
+  --cell-text-player: #8fb397;
+  --cell-text-conflict: #e5b3b3;
+  --cell-text-notes: #6b8a75;
+  --cell-text-hint: #1c2722;
+
+  --number-pad-hover: #304038;
+  --number-pad-active: #34453d;
+
+  --btn-primary-bg: #dce5df;
+  --btn-primary-text: #1c2722;
+  --btn-primary-hover: #c4d1c9;
+
+  --btn-secondary-bg: #304038;
+  --btn-secondary-text: #dce5df;
+  --btn-secondary-hover: #3a4d43;
+
+  --btn-danger-bg: #b26a6a;
+  --btn-danger-hover: #9c5c5c;
+
+  --modal-bg: rgba(28, 39, 34, 0.95);
+  --modal-card-bg: #222e29;
+
+  --header-bg: transparent;
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.3);
+
+  --diff-easy: #8fb397;
+  --diff-medium: #b3a88f;
+  --diff-hard: #b38f8f;
+  --diff-expert: #b26a6a;
+}

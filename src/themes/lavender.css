@@ -1,0 +1,66 @@
+/* ============================================================
+   THEME: LAVENDER
+   Muted purple, dusty lilac, warm grey.
+   ============================================================ */
+
+[data-theme='lavender'] {
+  --bg-primary: #f2eff4;
+  --bg-secondary: #e6e0eb;
+  --bg-tertiary: #dad1e1;
+  --bg-card: #f2eff4;
+
+  --border-primary: rgba(142, 126, 153, 0.2);
+  --border-secondary: rgba(142, 126, 153, 0.1);
+
+  --text-primary: #4a4150;
+  --text-secondary: #74677a;
+  --text-muted: #95889c;
+
+  --accent: #8e7e99;
+  --accent-hover: #786a82;
+  --accent-glow: rgba(142, 126, 153, 0.25);
+
+  /* Board-specific */
+  --cell-bg: #f2eff4;
+  --cell-bg-hover: #e6e0eb;
+  --cell-bg-selected: #dad1e1;
+  --cell-bg-peer: rgba(142, 126, 153, 0.08);
+  --cell-bg-same: rgba(142, 126, 153, 0.15);
+  --cell-bg-given: #f2eff4;
+  --cell-bg-conflict: #b26a6a;
+  --cell-bg-hint: #6f6378;
+
+  --cell-border: rgba(142, 126, 153, 0.15);
+  --cell-border-box: rgba(142, 126, 153, 0.35);
+
+  --cell-text-given: #4a4150;
+  --cell-text-player: #8e7e99;
+  --cell-text-conflict: #8c4c4c;
+  --cell-text-notes: #95889c;
+  --cell-text-hint: #f2eff4;
+
+  --number-pad-hover: #dad1e1;
+  --number-pad-active: #c5b9d0;
+
+  --btn-primary-bg: #8e7e99;
+  --btn-primary-text: #f2eff4;
+  --btn-primary-hover: #786a82;
+
+  --btn-secondary-bg: #e6e0eb;
+  --btn-secondary-text: #4a4150;
+  --btn-secondary-hover: #dad1e1;
+
+  --btn-danger-bg: #b26a6a;
+  --btn-danger-hover: #965656;
+
+  --modal-bg: rgba(242, 239, 244, 0.95);
+  --modal-card-bg: #f2eff4;
+
+  --header-bg: transparent;
+  --shadow-lg: 0 12px 40px rgba(74, 65, 80, 0.08);
+
+  --diff-easy: #8c997e;
+  --diff-medium: #998a7e;
+  --diff-hard: #8e7e99;
+  --diff-expert: #b26a6a;
+}

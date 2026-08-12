@@ -1,13 +1,31 @@
 /**
- * @fileoverview Win screen modal with stats, score, and next game options.
+ * @fileoverview Win screen modal (Cozy Redesign).
  */
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useGameStore } from '@/store/gameStore.ts'
 import { useSettingsStore } from '@/store/settingsStore.ts'
 import { Sounds } from '@/utils/sounds.ts'
 import { formatTime } from '@/hooks/useTimer.ts'
 import type { Achievement } from '@/store/statsStore.ts'
+import { Home, Play, Trophy, Brain, Gem, Zap, Crown, Flame, Swords, Calendar, Medal, Star, HelpCircle } from 'lucide-react'
+import { motion } from 'framer-motion'
+
+function getIcon(name: string) {
+  switch (name) {
+    case 'trophy': return <Trophy size={24} />
+    case 'brain': return <Brain size={24} />
+    case 'gem': return <Gem size={24} />
+    case 'zap': return <Zap size={24} />
+    case 'crown': return <Crown size={24} />
+    case 'flame': return <Flame size={24} />
+    case 'swords': return <Swords size={24} />
+    case 'calendar': return <Calendar size={24} />
+    case 'medal': return <Medal size={24} />
+    case 'star': return <Star size={24} />
+    default: return <HelpCircle size={24} />
+  }
+}
 
 interface WinModalProps {
   newAchievements: Achievement[]
@@ -15,118 +33,86 @@ interface WinModalProps {
   onMenu: () => void
 }
 
-function starRating(time: number, mistakes: number, hints: number): number {
-  if (mistakes === 0 && hints === 0 && time < 120) return 3
-  if (mistakes <= 2 && hints === 0) return 2
-  return 1
-}
+const GENTLE_MESSAGES = [
+  'Nicely done.',
+  'That was a good one.',
+  'A beautiful solve.',
+  'Well played.',
+  'Peaceful progress.',
+]
 
 export function WinModal({ newAchievements, onNewGame, onMenu }: WinModalProps) {
-  const { elapsedSeconds, mistakeCount, hintCount, difficulty } = useGameStore()
+  const { elapsedSeconds, difficulty } = useGameStore()
   const { soundEnabled } = useSettingsStore()
+  const [message] = useState(() => GENTLE_MESSAGES[Math.floor(Math.random() * GENTLE_MESSAGES.length)])
 
   useEffect(() => {
     if (soundEnabled) Sounds.win()
-    spawnConfetti()
   }, [soundEnabled])
 
-  const stars = starRating(elapsedSeconds, mistakeCount, hintCount)
-
   return (
-    <div className="modal-overlay">
-      <div className="modal-card win-screen">
-        <div className="win-emoji">🎉</div>
-        <h2 className="win-title">Puzzle Solved!</h2>
-
-        <div style={{ display: 'flex', gap: 4, justifyContent: 'center', fontSize: '1.8rem' }}>
-          {Array.from({ length: 3 }, (_, i) => (
-            <span key={i} style={{ opacity: i < stars ? 1 : 0.25 }}>⭐</span>
-          ))}
-        </div>
-
-        <div className="win-stats-grid">
-          <div className="win-stat">
-            <span className="win-stat-value">{formatTime(elapsedSeconds)}</span>
-            <span className="win-stat-label">Time</span>
-          </div>
-          <div className="win-stat">
-            <span className="win-stat-value">{mistakeCount}</span>
-            <span className="win-stat-label">Mistakes</span>
-          </div>
-          <div className="win-stat">
-            <span className="win-stat-value">{hintCount}</span>
-            <span className="win-stat-label">Hints Used</span>
-          </div>
-        </div>
+    <motion.div
+      className="modal-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <motion.div
+        className="modal-card win-screen"
+        style={{ textAlign: 'center', padding: '48px 32px' }}
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.95 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+      >
+        <h2 style={{ fontFamily: 'Lora, serif', fontSize: '2rem', fontWeight: 500, color: 'var(--text-primary)', marginBottom: 8 }}>
+          {message}
+        </h2>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: 32 }}>
+          You solved the {difficulty} puzzle in {formatTime(elapsedSeconds)}.
+        </p>
 
         {newAchievements.length > 0 && (
-          <div
-            style={{
-              background: 'var(--cell-bg-hint)',
-              border: '1px solid var(--cell-text-hint)',
-              borderRadius: 10,
-              padding: '12px 16px',
-              width: '100%',
-            }}
-          >
-            <div style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--cell-text-hint)', marginBottom: 8 }}>
-              🏅 New Achievements
+          <div className="win-achievements" style={{ marginBottom: 32, textAlign: 'left', background: 'var(--bg-secondary)', borderRadius: 12, padding: 16 }}>
+            <div style={{ fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 12 }}>
+              New Keepsakes
             </div>
-            {newAchievements.map(a => (
-              <div key={a.id} style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 4 }}>
-                <span>{a.icon}</span>
-                <div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>{a.title}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{a.description}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {newAchievements.map(a => (
+                <div key={a.id} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                  <span style={{ display: 'flex', alignItems: 'center' }}>{getIcon(a.icon)}</span>
+                  <div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>{a.title}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>{a.description}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
 
-        <div className="win-actions">
-          <button
-            className="btn btn--secondary btn--full"
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+          <motion.button
+            className="menu-action-link"
             onClick={onMenu}
+            style={{ padding: '12px 24px', background: 'var(--bg-secondary)', borderRadius: 8 }}
+            whileTap={{ scale: 0.95 }}
           >
-            🏠 Menu
-          </button>
-          <button
-            className="btn btn--primary btn--full"
+            <Home size={18} />
+            <span>Menu</span>
+          </motion.button>
+          <motion.button
+            className="menu-action-link"
             onClick={onNewGame}
+            style={{ padding: '12px 24px', background: 'var(--text-primary)', color: 'var(--bg-primary)', borderRadius: 8 }}
+            whileTap={{ scale: 0.95 }}
           >
-            ▶ Next {difficulty}
-          </button>
+            <Play size={18} />
+            <span>Next {difficulty}</span>
+          </motion.button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
-}
-
-// ---------------------------------------------------------------------------
-// Confetti
-// ---------------------------------------------------------------------------
-
-function spawnConfetti() {
-  const colors = ['#58a6ff', '#56d364', '#e3b341', '#d2a8ff', '#ff7b72']
-  const count = 60
-
-  for (let i = 0; i < count; i++) {
-    setTimeout(() => {
-      const el = document.createElement('div')
-      el.className = 'confetti-particle'
-      el.style.cssText = `
-        left: ${Math.random() * 100}vw;
-        top: -20px;
-        background: ${colors[Math.floor(Math.random() * colors.length)]};
-        width: ${6 + Math.random() * 8}px;
-        height: ${6 + Math.random() * 8}px;
-        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-        animation: confetti-fall ${1.5 + Math.random() * 2}s ease forwards;
-        animation-delay: ${Math.random() * 0.5}s;
-      `
-      document.body.appendChild(el)
-      setTimeout(() => el.remove(), 4000)
-    }, i * 30)
-  }
 }

@@ -1,0 +1,67 @@
+/* ============================================================
+   THEME: LIBRARY
+   Dark walnut, parchment, muted green.
+   ============================================================ */
+
+[data-theme='library'] {
+  --bg-primary: #E9E4D4;
+  --bg-secondary: #DFD7C3;
+  --bg-tertiary: #D4CAB0;
+  --bg-card: #E9E4D4;
+
+  --border-primary: rgba(62, 53, 44, 0.2);
+  --border-secondary: rgba(62, 53, 44, 0.1);
+
+  --text-primary: #3E352C;
+  --text-secondary: #5C5247;
+  --text-muted: #857D72;
+
+  --accent: #4A6352;
+  --accent-hover: #384F3F;
+  --accent-glow: rgba(74, 99, 82, 0.15);
+
+  /* Board-specific */
+  --cell-bg: #E9E4D4;
+  --cell-bg-hover: #DFD7C3;
+  --cell-bg-selected: #D4CAB0;
+  --cell-bg-peer: rgba(74, 99, 82, 0.06);
+  --cell-bg-same: rgba(74, 99, 82, 0.12);
+  --cell-bg-given: #E9E4D4;
+  --cell-bg-conflict: #8C4035;
+  --cell-bg-hint: #8C6A35;
+
+  --cell-border: rgba(62, 53, 44, 0.15);
+  --cell-border-box: rgba(62, 53, 44, 0.35);
+
+  --cell-text-given: #3E352C;
+  --cell-text-player: #4A6352;
+  --cell-text-conflict: #E9E4D4;
+  --cell-text-notes: #857D72;
+  --cell-text-hint: #E9E4D4;
+
+  --number-pad-bg: #DFD7C3;
+  --number-pad-hover: #D4CAB0;
+  --number-pad-active: #C8BC9D;
+
+  --btn-primary-bg: #3E352C;
+  --btn-primary-text: #E9E4D4;
+  --btn-primary-hover: #29221B;
+
+  --btn-secondary-bg: #DFD7C3;
+  --btn-secondary-text: #3E352C;
+  --btn-secondary-hover: #D4CAB0;
+
+  --btn-danger-bg: #8C4035;
+  --btn-danger-hover: #733026;
+
+  --modal-bg: rgba(233, 228, 212, 0.9);
+  --modal-card-bg: #E9E4D4;
+
+  --header-bg: transparent;
+  --shadow-lg: 0 12px 40px rgba(62, 53, 44, 0.15);
+
+  --diff-easy: #4A6352;
+  --diff-medium: #8C6A35;
+  --diff-hard: #8C5535;
+  --diff-expert: #8C4035;
+}

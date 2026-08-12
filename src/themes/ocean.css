@@ -1,0 +1,66 @@
+/* ============================================================
+   THEME: OCEAN
+   Deep blue, seafoam, calm waters.
+   ============================================================ */
+
+[data-theme='ocean'] {
+  --bg-primary: #121c26;
+  --bg-secondary: #1a2835;
+  --bg-tertiary: #233545;
+  --bg-card: #16222e;
+
+  --border-primary: rgba(144, 192, 197, 0.15);
+  --border-secondary: rgba(144, 192, 197, 0.08);
+
+  --text-primary: #d4e3e5;
+  --text-secondary: #90c0c5;
+  --text-muted: #5a8a92;
+
+  --accent: #5db2b5;
+  --accent-hover: #4d9396;
+  --accent-glow: rgba(93, 178, 181, 0.15);
+
+  /* Board-specific */
+  --cell-bg: #16222e;
+  --cell-bg-hover: #1e2e3d;
+  --cell-bg-selected: #283c4f;
+  --cell-bg-peer: rgba(93, 178, 181, 0.08);
+  --cell-bg-same: rgba(93, 178, 181, 0.15);
+  --cell-bg-given: #16222e;
+  --cell-bg-conflict: #b55d5d;
+  --cell-bg-hint: #3d797a;
+
+  --cell-border: rgba(144, 192, 197, 0.1);
+  --cell-border-box: rgba(144, 192, 197, 0.25);
+
+  --cell-text-given: #d4e3e5;
+  --cell-text-player: #5db2b5;
+  --cell-text-conflict: #e5b3b3;
+  --cell-text-notes: #5a8a92;
+  --cell-text-hint: #121c26;
+
+  --number-pad-hover: #233545;
+  --number-pad-active: #283c4f;
+
+  --btn-primary-bg: #5db2b5;
+  --btn-primary-text: #121c26;
+  --btn-primary-hover: #4d9396;
+
+  --btn-secondary-bg: #1a2835;
+  --btn-secondary-text: #d4e3e5;
+  --btn-secondary-hover: #233545;
+
+  --btn-danger-bg: #b55d5d;
+  --btn-danger-hover: #9c4c4c;
+
+  --modal-bg: rgba(18, 28, 38, 0.95);
+  --modal-card-bg: #16222e;
+
+  --header-bg: transparent;
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+
+  --diff-easy: #5db586;
+  --diff-medium: #b59b5d;
+  --diff-hard: #b57c5d;
+  --diff-expert: #b55d5d;
+}

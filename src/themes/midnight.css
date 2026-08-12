@@ -1,0 +1,67 @@
+/* ============================================================
+   THEME: MIDNIGHT
+   Deep charcoal, muted blue, soft moonlight.
+   ============================================================ */
+
+[data-theme='midnight'] {
+  --bg-primary: #1C1E24;
+  --bg-secondary: #252830;
+  --bg-tertiary: #2D313A;
+  --bg-card: #252830;
+
+  --border-primary: rgba(162, 177, 202, 0.15);
+  --border-secondary: rgba(162, 177, 202, 0.08);
+
+  --text-primary: #E5E9F0;
+  --text-secondary: #A2B1CA;
+  --text-muted: #71819B;
+
+  --accent: #81A1C1;
+  --accent-hover: #88C0D0;
+  --accent-glow: rgba(129, 161, 193, 0.2);
+
+  /* Board-specific */
+  --cell-bg: #252830;
+  --cell-bg-hover: #2D313A;
+  --cell-bg-selected: #3B4252;
+  --cell-bg-peer: rgba(129, 161, 193, 0.08);
+  --cell-bg-same: rgba(129, 161, 193, 0.15);
+  --cell-bg-given: #252830;
+  --cell-bg-conflict: #BF616A;
+  --cell-bg-hint: #A3BE8C;
+
+  --cell-border: rgba(162, 177, 202, 0.1);
+  --cell-border-box: rgba(162, 177, 202, 0.25);
+
+  --cell-text-given: #E5E9F0;
+  --cell-text-player: #88C0D0;
+  --cell-text-conflict: #E5E9F0;
+  --cell-text-notes: #71819B;
+  --cell-text-hint: #252830;
+
+  --number-pad-bg: #252830;
+  --number-pad-hover: #2D313A;
+  --number-pad-active: #3B4252;
+
+  --btn-primary-bg: #81A1C1;
+  --btn-primary-text: #1C1E24;
+  --btn-primary-hover: #88C0D0;
+
+  --btn-secondary-bg: #252830;
+  --btn-secondary-text: #A2B1CA;
+  --btn-secondary-hover: #2D313A;
+
+  --btn-danger-bg: #BF616A;
+  --btn-danger-hover: #D08770;
+
+  --modal-bg: rgba(28, 30, 36, 0.85);
+  --modal-card-bg: #252830;
+
+  --header-bg: transparent;
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.25);
+
+  --diff-easy: #A3BE8C;
+  --diff-medium: #EBCB8B;
+  --diff-hard: #D08770;
+  --diff-expert: #BF616A;
+}

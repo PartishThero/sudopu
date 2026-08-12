@@ -5,6 +5,8 @@
 import { useGameStore } from '@/store/gameStore.ts'
 import { useSettingsStore } from '@/store/settingsStore.ts'
 import { formatTime } from '@/hooks/useTimer.ts'
+import { Settings, BarChart2 } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 interface HeaderProps {
   onOpenSettings: () => void
@@ -19,15 +21,21 @@ export function Header({ onOpenSettings, onOpenStats, onHome }: HeaderProps) {
   const showTimerDisplay = showTimer && (phase === 'playing' || phase === 'paused' || phase === 'won')
 
   return (
-    <header className="header" role="banner">
+    <motion.header
+      className="header"
+      role="banner"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <div className="header-inner">
-        <button
+        <motion.button
           className="header-logo"
           onClick={onHome}
           aria-label="Go to home menu"
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
         >
-          ◈ Sudoku <span>Master</span>
+          ◈ Sudopu
           {isDaily && (
             <span
               style={{
@@ -43,7 +51,7 @@ export function Header({ onOpenSettings, onOpenStats, onHome }: HeaderProps) {
               DAILY
             </span>
           )}
-        </button>
+        </motion.button>
 
         <div className="header-actions">
           {showTimerDisplay && (
@@ -62,25 +70,27 @@ export function Header({ onOpenSettings, onOpenStats, onHome }: HeaderProps) {
             </span>
           )}
 
-          <button
+          <motion.button
             className="icon-btn"
             onClick={onOpenStats}
             aria-label="View statistics"
             title="Statistics"
+            whileTap={{ scale: 0.9 }}
           >
-            📊
-          </button>
+            <BarChart2 size={20} />
+          </motion.button>
 
-          <button
+          <motion.button
             className="icon-btn"
             onClick={onOpenSettings}
             aria-label="Open settings"
             title="Settings"
+            whileTap={{ scale: 0.9 }}
           >
-            ⚙️
-          </button>
+            <Settings size={20} />
+          </motion.button>
         </div>
       </div>
-    </header>
+    </motion.header>
   )
 }

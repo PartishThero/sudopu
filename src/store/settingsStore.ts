@@ -8,7 +8,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export type Theme = 'light' | 'dark' | 'paper' | 'neon' | 'seasonal'
+export type Theme = 'midnight' | 'coffee' | 'library' | 'forest' | 'clay' | 'autumn' | 'sakura' | 'ocean' | 'lavender'
 export type FontStyle = 'modern' | 'classic' | 'handwritten'
 
 interface SettingsState {
@@ -44,7 +44,7 @@ interface SettingsState {
 export const useSettingsStore = create<SettingsState>()(
   persist(
     set => ({
-      theme: 'dark',
+      theme: 'midnight',
       fontStyle: 'modern',
       soundEnabled: true,
       musicEnabled: false,

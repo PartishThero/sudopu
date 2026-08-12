@@ -7,6 +7,8 @@ import { useGameStore } from '@/store/gameStore.ts'
 import { useSettingsStore } from '@/store/settingsStore.ts'
 import { Sounds } from '@/utils/sounds.ts'
 import type { CellValue } from '@/engine/types.ts'
+import { Delete, Pencil } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9] as CellValue[]
 
@@ -48,38 +50,41 @@ export function NumberPad() {
         const count = digitCounts.get(v) ?? 0
         const isComplete = count === 9
         return (
-          <button
+          <motion.button
             key={v}
             className={`num-pad-btn${isComplete ? ' num-pad-btn--complete' : ''}`}
             onClick={() => handleDigit(v)}
             aria-label={`Enter ${v}`}
             disabled={isComplete}
             title={isComplete ? `${v} is complete` : undefined}
+            {...(!isComplete ? { whileTap: { scale: 0.92 } } : {})}
           >
             {v}
-          </button>
+          </motion.button>
         )
       })}
 
       {/* Erase */}
-      <button
+      <motion.button
         className="num-pad-btn"
         onClick={handleErase}
         aria-label="Erase cell"
         title="Erase (Delete)"
+        whileTap={{ scale: 0.92 }}
       >
-        ⌫
-      </button>
+        <Delete size={20} />
+      </motion.button>
 
       {/* Pencil mode */}
-      <button
+      <motion.button
         className={`num-pad-btn${isPencilMode ? ' ctrl-btn--active' : ''}`}
         onClick={togglePencilMode}
         aria-label={isPencilMode ? 'Pencil mode on — click to turn off' : 'Enable pencil mode'}
         title="Pencil mode (P)"
+        whileTap={{ scale: 0.92 }}
       >
-        ✏️
-      </button>
+        <Pencil size={20} />
+      </motion.button>
     </div>
   )
 }

@@ -1,0 +1,67 @@
+/* ============================================================
+   THEME: COFFEE
+   Espresso brown, cream, warm beige.
+   ============================================================ */
+
+[data-theme='coffee'] {
+  --bg-primary: #FDF9F1;
+  --bg-secondary: #F3ECE1;
+  --bg-tertiary: #E8DDCE;
+  --bg-card: #FDF9F1;
+
+  --border-primary: rgba(107, 78, 59, 0.15);
+  --border-secondary: rgba(107, 78, 59, 0.08);
+
+  --text-primary: #4A3B32;
+  --text-secondary: #7A6355;
+  --text-muted: #9F8B7B;
+
+  --accent: #B26A4A;
+  --accent-hover: #9E593C;
+  --accent-glow: rgba(178, 106, 74, 0.15);
+
+  /* Board-specific */
+  --cell-bg: #FDF9F1;
+  --cell-bg-hover: #F3ECE1;
+  --cell-bg-selected: #E8DDCE;
+  --cell-bg-peer: rgba(178, 106, 74, 0.05);
+  --cell-bg-same: rgba(178, 106, 74, 0.1);
+  --cell-bg-given: #FDF9F1;
+  --cell-bg-conflict: #B24A4A;
+  --cell-bg-hint: #779270;
+
+  --cell-border: rgba(107, 78, 59, 0.12);
+  --cell-border-box: rgba(107, 78, 59, 0.25);
+
+  --cell-text-given: #4A3B32;
+  --cell-text-player: #B26A4A;
+  --cell-text-conflict: #B24A4A;
+  --cell-text-notes: #9F8B7B;
+  --cell-text-hint: #FDF9F1;
+
+  --number-pad-bg: #F3ECE1;
+  --number-pad-hover: #E8DDCE;
+  --number-pad-active: #D9C8B5;
+
+  --btn-primary-bg: #4A3B32;
+  --btn-primary-text: #FDF9F1;
+  --btn-primary-hover: #3A2E26;
+
+  --btn-secondary-bg: #F3ECE1;
+  --btn-secondary-text: #4A3B32;
+  --btn-secondary-hover: #E8DDCE;
+
+  --btn-danger-bg: #B24A4A;
+  --btn-danger-hover: #993C3C;
+
+  --modal-bg: rgba(253, 249, 241, 0.9);
+  --modal-card-bg: #FDF9F1;
+
+  --header-bg: transparent;
+  --shadow-lg: 0 12px 40px rgba(107, 78, 59, 0.1);
+
+  --diff-easy: #779270;
+  --diff-medium: #B28F4A;
+  --diff-hard: #B26A4A;
+  --diff-expert: #B24A4A;
+}

@@ -1,0 +1,66 @@
+/* ============================================================
+   THEME: SAKURA
+   Dusty pink, warm white, soft mauve.
+   ============================================================ */
+
+[data-theme='sakura'] {
+  --bg-primary: #fcf8f8;
+  --bg-secondary: #f4eaeb;
+  --bg-tertiary: #ead9db;
+  --bg-card: #fcf8f8;
+
+  --border-primary: rgba(184, 134, 147, 0.15);
+  --border-secondary: rgba(184, 134, 147, 0.08);
+
+  --text-primary: #594047;
+  --text-secondary: #8c6a73;
+  --text-muted: #b898a1;
+
+  --accent: #b88693;
+  --accent-hover: #9e6f7c;
+  --accent-glow: rgba(184, 134, 147, 0.15);
+
+  /* Board-specific */
+  --cell-bg: #fcf8f8;
+  --cell-bg-hover: #f4eaeb;
+  --cell-bg-selected: #ead9db;
+  --cell-bg-peer: rgba(184, 134, 147, 0.06);
+  --cell-bg-same: rgba(184, 134, 147, 0.12);
+  --cell-bg-given: #fcf8f8;
+  --cell-bg-conflict: #c46868;
+  --cell-bg-hint: #b88693;
+
+  --cell-border: rgba(184, 134, 147, 0.15);
+  --cell-border-box: rgba(184, 134, 147, 0.3);
+
+  --cell-text-given: #594047;
+  --cell-text-player: #b88693;
+  --cell-text-conflict: #8a3c3c;
+  --cell-text-notes: #b898a1;
+  --cell-text-hint: #fcf8f8;
+
+  --number-pad-hover: #ead9db;
+  --number-pad-active: #dbcad0;
+
+  --btn-primary-bg: #b88693;
+  --btn-primary-text: #fcf8f8;
+  --btn-primary-hover: #9e6f7c;
+
+  --btn-secondary-bg: #f4eaeb;
+  --btn-secondary-text: #594047;
+  --btn-secondary-hover: #ead9db;
+
+  --btn-danger-bg: #c46868;
+  --btn-danger-hover: #a35353;
+
+  --modal-bg: rgba(252, 248, 248, 0.95);
+  --modal-card-bg: #fcf8f8;
+
+  --header-bg: transparent;
+  --shadow-lg: 0 12px 40px rgba(89, 64, 71, 0.08);
+
+  --diff-easy: #b8a986;
+  --diff-medium: #b89886;
+  --diff-hard: #b88693;
+  --diff-expert: #c46868;
+}

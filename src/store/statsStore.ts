@@ -41,16 +41,16 @@ export interface Achievement {
 }
 
 const ALL_ACHIEVEMENTS: Achievement[] = [
-  { id: 'first_win', title: 'First Victory', description: 'Win your first game', icon: '🏆', unlockedAt: null },
-  { id: 'no_hints', title: 'Pure Logic', description: 'Win without using any hints', icon: '🧠', unlockedAt: null },
-  { id: 'no_mistakes', title: 'Flawless', description: 'Win without any mistakes', icon: '💎', unlockedAt: null },
-  { id: 'sub3_easy', title: 'Speed Demon', description: 'Solve an Easy puzzle in under 3 minutes', icon: '⚡', unlockedAt: null },
-  { id: 'expert_win', title: 'Grand Master', description: 'Win an Expert puzzle', icon: '👑', unlockedAt: null },
-  { id: 'streak_3', title: 'Hat Trick', description: 'Win 3 games in a row', icon: '🔥', unlockedAt: null },
-  { id: 'streak_7', title: 'Week Warrior', description: 'Win 7 games in a row', icon: '⚔️', unlockedAt: null },
-  { id: 'daily_done', title: 'Daily Devotee', description: 'Complete a daily challenge', icon: '📅', unlockedAt: null },
-  { id: 'win_10', title: 'Centurion', description: 'Win 10 games total', icon: '🎖️', unlockedAt: null },
-  { id: 'win_50', title: 'Veteran', description: 'Win 50 games total', icon: '🌟', unlockedAt: null },
+  { id: 'first_win', title: 'First Victory', description: 'Win your first game', icon: 'trophy', unlockedAt: null },
+  { id: 'no_hints', title: 'Pure Logic', description: 'Win without using any hints', icon: 'brain', unlockedAt: null },
+  { id: 'no_mistakes', title: 'Flawless', description: 'Win without any mistakes', icon: 'gem', unlockedAt: null },
+  { id: 'sub3_easy', title: 'Speed Demon', description: 'Solve an Easy puzzle in under 3 minutes', icon: 'zap', unlockedAt: null },
+  { id: 'expert_win', title: 'Grand Master', description: 'Win an Expert puzzle', icon: 'crown', unlockedAt: null },
+  { id: 'streak_3', title: 'Hat Trick', description: 'Win 3 games in a row', icon: 'flame', unlockedAt: null },
+  { id: 'streak_7', title: 'Week Warrior', description: 'Win 7 games in a row', icon: 'swords', unlockedAt: null },
+  { id: 'daily_done', title: 'Daily Devotee', description: 'Complete a daily challenge', icon: 'calendar', unlockedAt: null },
+  { id: 'win_10', title: 'Centurion', description: 'Win 10 games total', icon: 'medal', unlockedAt: null },
+  { id: 'win_50', title: 'Veteran', description: 'Win 50 games total', icon: 'star', unlockedAt: null },
 ]
 
 interface StatsState {
