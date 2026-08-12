@@ -90,7 +90,7 @@ export function GameScreen({ onWin }: GameScreenProps) {
       {/* Bottom Understated Info */}
       <div className="game-bottom-info" style={{ display: 'flex', gap: 24, opacity: 0.6, fontSize: '0.8rem', marginTop: 8 }}>
         {mistakeCount > 0 && (
-          <span style={{ color: 'var(--cell-text-conflict)' }}>Mistakes: {mistakeCount}</span>
+          <span style={{ color: 'var(--cell-text-conflict)' }}>Mistakes "Hello pri pri": {mistakeCount} </span>
         )}
         {hintCount > 0 && (
           <span>Hints used: {hintCount}</span>
