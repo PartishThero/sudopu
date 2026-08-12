@@ -28,7 +28,7 @@ function WinRate({ won, played }: { won: number; played: number }) {
 }
 
 export function StatsModal({ onClose }: StatsModalProps) {
-  const { byDifficulty, currentStreak, longestStreak, records, achievements } = useStatsStore()
+  const { byDifficulty, currentStreak, longestStreak, achievements } = useStatsStore()
 
   const totalPlayed = DIFFICULTIES.reduce((s, d) => s + byDifficulty[d].played, 0)
   const totalWon = DIFFICULTIES.reduce((s, d) => s + byDifficulty[d].won, 0)

@@ -376,7 +376,7 @@ export const useGameStore = create<GameState>()(
       getSaveSlot: () => {
         const { puzzle, solution, playerBoard, notes, difficulty, elapsedSeconds, moveCount, mistakeCount, hintCount, isDaily, dailyDate } = get()
         if (!puzzle || !solution || !playerBoard) return null
-        return {
+        const slot: SaveSlot = {
           id: crypto.randomUUID(),
           puzzle,
           solution,
@@ -389,8 +389,9 @@ export const useGameStore = create<GameState>()(
           hintCount,
           savedAt: Date.now(),
           isDaily,
-          dailyDate: dailyDate ?? undefined,
         }
+        if (dailyDate !== null) slot.dailyDate = dailyDate
+        return slot
       },
 
       reset: () => {

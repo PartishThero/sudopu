@@ -4,7 +4,6 @@
 
 import { useEffect } from 'react'
 import { useGameStore } from '@/store/gameStore.ts'
-import { useStatsStore } from '@/store/statsStore.ts'
 import { useSettingsStore } from '@/store/settingsStore.ts'
 import { Sounds } from '@/utils/sounds.ts'
 import { formatTime } from '@/hooks/useTimer.ts'

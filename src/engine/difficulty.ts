@@ -9,7 +9,6 @@
  *   Medium: pointing_pair, box_line_reduction
  *   Hard:   naked_pair, naked_triple, x_wing
  *   Expert: swordfish, coloring, backtracking (fallback)
- *
  * @module engine/difficulty
  */
 
